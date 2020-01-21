@@ -59,25 +59,36 @@
 	
 	
 <ul class="nav nav-tabs nav-justified mb-4">
-	<li class="nav-item"><a role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0"> <span>사진</span></a></li>
+	<li class="nav-item"><a role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0"> <span>사진 [ <?=count($attachs)?> ] </span></a></li>
 	<li class="nav-item"><a role="tab" class="nav-link" id="tab-1" data-toggle="tab" href="#tab-content-1"> <span>영상</span></a></li>
 </ul>
 	
 <div class="tab-content">
 	<div class="tab-pane tabs-animation fade active show" id="tab-content-0" role="tabpanel">
-		<div class="row">
-
+		<div id="carousel_photo" class="carousel slide" data-ride="carousel">
+			<div class="carousel-inner">
 <?php
+$i = 0;
 foreach($attachs as $value) {
 	$src = BASE_URL . "data/" . $this->uri->segment(3) . "/" . $value->attach_name;
 	?>
-			<div class="col-lg-3 col-md-4 col-6">
-				<a href="#" class="d-block mb-4 h-100"> <img class="img-fluid img-thumbnail" src="<?=$src?>" alt="">
-				</a>
-			</div>
+				<div class="carousel-item<?=$i == 0 ? " active" : ""?>">
+					<img class="d-block w-100" src="<?=$src?>" alt="First slide">
+				</div>
 <?php
+	$i++;
 }
 ?>
+			</div>
+			
+			<a class="carousel-control-prev" href="#carousel_photo" role="button" data-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="sr-only">Previous</span>
+			</a>
+			<a class="carousel-control-next" href="#carousel_photo" role="button" data-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="sr-only">Next</span>
+			</a>
 		</div>
 	</div>
 		
@@ -97,3 +108,5 @@ foreach($attachs as $value) {
 		</div>
 	</div>
 </div>
+
+
