@@ -1,14 +1,15 @@
 <!-- Page Content -->
 <div class="row">
-	<div class="col-lg-10">
-		<h1 class="font-weight-light text-center text-lg-left mt-4 mb-0"><?=$article->title?></h1>
-	</div>
-	<div class="mt-4 mb-0 col-lg-2">
+	<h1 class="font-weight-light text-center text-lg-left mt-4 mb-0"><?=$article->title?></h1>
+</div>
+
+<hr class="mt-2 mb-5">
+	
+<div class="row mt-2 mb-2">
+	<div class="col-md-12 text-right">
 		<a href="<?=BASE_URL?>" class="btn btn-secondary">목록</a>
 	</div>
 </div>
-<hr class="mt-2 mb-5">
-	
 	
 <div class="row">
 	<div class="col-lg-12">
@@ -110,3 +111,8 @@ foreach($attachs as $value) {
 </div>
 
 
+<div class="row mt-2 mb-2">
+	<div class="col-md-12 text-right">
+		<a href="<?=BASE_URL?>" class="btn btn-secondary">목록</a>
+	</div>
+</div>
