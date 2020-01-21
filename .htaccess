@@ -1,0 +1,9 @@
+<IfModule mod_rewrite.c>
+	SetEnv HTTP_MOD_REWRITE On
+	RewriteEngine On
+	RewriteBase /~location/
+	RewriteCond $1 !^(index\.php|css|js|include|images|captcha|robots\.txt) 
+	RewriteCond %{REQUEST_FILENAME} !-f 
+	RewriteCond %{REQUEST_FILENAME} !-d 
+	RewriteRule ^(.*)$ index.php/$1 [L]
+</IfModule>
