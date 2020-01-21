@@ -62,7 +62,7 @@ class Main extends My_Controller{
 		//페이지네이션 설정
 		$config['base_url'] = BASE_URL.'main/index/'.$page_url; //페이징 주소
 		$config['total_rows'] = $this->location_m->get_list('count', '', '', $search_word); //게시물의 전체 갯수
-		$config['num_links'] = 2;	//선택된 페이지번호 좌우로 몇개의 숫자링크를 보여줄지 설정
+		$config['num_links'] = 4;	//선택된 페이지번호 좌우로 몇개의 숫자링크를 보여줄지 설정
 		$config['per_page'] = 9; //한 페이지에 표시할 게시물 수
 		$config['uri_segment'] = $uri_segment; //페이지 번호가 위치한 세그먼트
 		$config['full_tag_open'] = '<ul class="pagination justify-content-center">';

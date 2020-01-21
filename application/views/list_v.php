@@ -9,8 +9,10 @@
 	<div class="row">
 
 <?php 
+
 foreach($list as $l){
-	$link = BASE_URL."main/view/".$l->id;
+	$link = BASE_URL."main/view/".$l->id."/page/".$page;
+	
 	$thumbnail = isset($l->thumbnail) && $l->thumbnail != "" ? BASE_URL."data/".$l->id."/".$l->thumbnail : "http://placehold.it/700x400"; 
 ?>
 		<div class="col-lg-4 col-sm-6 mb-4">

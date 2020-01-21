@@ -7,7 +7,7 @@
 	
 <div class="row mt-2 mb-2">
 	<div class="col-md-12 text-right">
-		<a href="<?=BASE_URL?>" class="btn btn-secondary">목록</a>
+		<a href="<?=BASE_URL?>main/index/<?=$this->uri->segment(5)?>" class="btn btn-secondary">목록</a>
 	</div>
 </div>
 	
@@ -113,6 +113,6 @@ foreach($attachs as $value) {
 
 <div class="row mt-2 mb-2">
 	<div class="col-md-12 text-right">
-		<a href="<?=BASE_URL?>" class="btn btn-secondary">목록</a>
+		<a href="<?=BASE_URL?>main/index/<?=$this->uri->segment(5)?>" class="btn btn-secondary">목록</a>
 	</div>
 </div>
