@@ -9,8 +9,6 @@ class Location_m extends My_Model
     function __construct()
     {
         parent::__construct();
-        $this->load->helper('alert');
-//         $this->mem_id = $this->session->userdata['mem_id'];
     }
 
     
@@ -18,8 +16,6 @@ class Location_m extends My_Model
     function get_list($type = '', $offset = '', $limit = '', $search_word = '', $location = '')
     {
     	
-    	
-    
     	if ($search_word != '')
     	{
     		//검색어가 있을 경우의 처리
@@ -57,11 +53,11 @@ class Location_m extends My_Model
     		//게시물 섬네일파일을 구함
     		foreach($result as $key => $value){
     			
-    			$sql = "SELECT attach_name FROM ".$this->lo_attach_table." WHERE lo_id = ".intval($value->id)." ORDER BY rand() LIMIT 1";
-    			$query = $this->db->query($sql);
+    			$this->db->select('attach_name');
+    			$this->db->where(array('lo_id' => intval($value->id)));
+    			$this->db->order_by('title', 'RANDOM');
+    			$query = $this->db->get($this->lo_attach_table, 1);
     			$_result = $query->row();
-    			
-    			
     			$result[$key]->thumbnail = $_result->attach_name;
     		}
     	}
@@ -82,9 +78,7 @@ class Location_m extends My_Model
    		
    		$query = $this->db->get_where($this->lo_table, array('id' => $id), 1);
 	    $result = $query->row();
-//    		echo $this->db->last_query();
-
-
+        //echo $this->db->last_query();
     	return $result;
     }
     
@@ -93,16 +87,20 @@ class Location_m extends My_Model
      * 게시물 첨부사진 가져오기
      */
     function get_attachs($id = 0){
-        $sql = "SELECT attach_name FROM ".$this->lo_attach_table." WHERE lo_id = ".$id;
-        $query = $this->db->query($sql);
+        
+        $this->db->select('attach_name');
+        $query = $this->db->get_where($this->lo_attach_table, array('lo_id' => $id));
         $result = $query->result();
+        //echo  $this->db->last_query();
         return $result;
     }
 
     
     function get_locations(){
-    	$sql = "SELECT location FROM ".$this->lo_table." GROUP BY location ORDER BY location ASC";
-    	$query = $this->db->query($sql);
+    	$this->db->select('location');
+    	$this->db->group_by('location');
+    	$this->db->order_by('location', 'ASC');
+    	$query = $this->db->get($this->lo_table);
     	$result = $query->result();
     	return $result;
     }

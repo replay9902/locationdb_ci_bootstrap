@@ -39,17 +39,8 @@ class Main extends My_Controller{
 // 		$this->output->enable_profiler(TRUE);
 		//페이지네이션 라이브러리 로딩 추가
 		$this->load->library('pagination');
-		/*
-		setgment 순서
-		main/index/페이지/키워드/전주시/
-		1 : 컨트롤러
-		2 : 메서드
-		3 : 페이지
-		4 : 검색
-		5 : 지역
-		*/
 		
-		$this->load->helper('text');
+		$this->load->helper(array('text', 'form',  'alert'));
 		
 		$page = $this->input->get('p') != "" ? intval($this->input->get('p'))  : 1;
 		$search_word = $this->input->get('q');
@@ -117,48 +108,6 @@ class Main extends My_Controller{
 	
 	
 	
-	/**
-	 * url중 키값을 구분하여 값을 가져오도록.
-	 *
-	 * @param Array $url : segment_explode 한 url값
-	 * @param String $key : 가져오려는 값의 key
-	 * @return String $url[$k] : 리턴값
-	 */
-	function url_explode($url, $key)
-	{
-		$cnt = count($url);
-		for($i=0; $cnt>$i; $i++ )
-		{
-			if($url[$i] ==$key)
-			{
-				$k = $i+1;
-				return $url[$k];
-			}
-		}
-	}
-	
-	/**
-	 * HTTP의 URL을 "/"를 Delimiter로 사용하여 배열로 바꾸어 리턴한다.
-	 *
-	 * @param	string	대상이 되는 문자열
-	 * @return	string[]
-	 */
-	function segment_explode($seg)
-	{
-		//세크먼트 앞뒤 '/' 제거후 uri를 배열로 반환
-		$len = strlen($seg);
-		if(substr($seg, 0, 1) == '/')
-		{
-			$seg = substr($seg, 1, $len);
-		}
-		$len = strlen($seg);
-		if(substr($seg, -1) == '/')
-		{
-			$seg = substr($seg, 0, $len-1);
-		}
-		$seg_exp = explode("/", $seg);
-		return $seg_exp;
-	}
 	
 	
 }

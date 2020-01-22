@@ -3,13 +3,13 @@
 
 	<!-- Page Heading -->
 	<h1 class="my-4">
-		로케이션DB <!-- <small>Secondary Text</small> -->
+		<a href="<?=BASE_URL?>" style="color:#000;text-decoration:none">로케이션DB </a><!-- <small>Secondary Text</small> -->
 	</h1>
 
 <div class="row">
-	<div class="col-md-12">
+	<div class="col-md-3 col-lg-6">
 		<div class="mb-2 mr-2 btn-group">
-			<button class="btn btn-primary"><?=$location == "" ? "전체" : $location?></button>
+			<button class="btn btn-primary btn-wide btn-block"><?=$location == "" ? "전체" : $location?></button>
 			<button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="dropdown-toggle-split dropdown-toggle btn btn-primary"><span class="sr-only">Toggle Dropdown</span></button>
 			<div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu">
 				<a href="<?=BASE_URL?>main/index/?" class="dropdown-item">전체</a>
@@ -17,7 +17,17 @@
 				<a href="<?=BASE_URL?>main/index/?l=<?=urlencode($value->location)?>" class="dropdown-item"><?=$value->location?></a>
 				<?php }?>
 			</div>
+			
+			
 		</div>
+	</div>
+	
+	<div class="col-md-9 mb-2 text-right col-lg-6">
+			<form action="<?=BASE_URL?>" method="get" id="search_form" class="form-inline" style="display:inline">
+			<?php echo form_input(array('class' => 'form-control mr-sm-2', 'placeholder' => '검색어를 입력하세요', 'name' => 'q', 'value' => $search_word))?>
+			<button class="btn btn-primary my-2 my-sm-0" type="submit">검색</button>
+			
+		</form>
 	</div>
 </div>
 
@@ -44,6 +54,15 @@
 	}
 	?>
 		
+	<?php if(count($list) == 0){?>
+		<div class="col-lg-12 col-sm-12 mb-12">
+			<div class="card h-100">
+				<div class="card-body">
+					<p class="card-text"><a href="<?=BASE_URL?>">검색조건에 해당하는 데이터가 없습니다.</a></p>
+				</div>
+			</div>
+		</div>
+	<?php }?>
 	</div>
 	<!-- /.row -->
 
