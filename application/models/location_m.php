@@ -15,33 +15,39 @@ class Location_m extends My_Model
 
     
     
-    function get_list($type = '', $offset = '', $limit = '', $search_word = '')
+    function get_list($type = '', $offset = '', $limit = '', $search_word = '', $location = '')
     {
-    	$sword = ' WHERE 1 = 1 ';
+    	
+    	
     
-    	if ( $search_word != '' )
+    	if ($search_word != '')
     	{
     		//검색어가 있을 경우의 처리
-    		$sword = ' WHERE title like "%'.$search_word.'%" or introduce like "%'.$search_word.'%" ';
+    		$this->db->or_like('title', $search_word);
+    		$this->db->or_like('introduce', $search_word);
     	}
     
+    	if($location != ""){
+    		$this->db->where('location', $location);
+    	}
+    	
     	$limit_query = '';
     
     	if ( $limit != '' OR $offset != '' )
     	{
     		//페이징이 있을 경우의 처리
-    		$limit_query = ' LIMIT '.$offset.', '.$limit;
+    		$this->db->limit($limit, $offset);
     	}
+    	
+    	$this->db->order_by('id', 'DESC');
     
-    	$sql = "SELECT * FROM ".$this->lo_table.$sword." ORDER BY id DESC".$limit_query;
-    	$query = $this->db->query($sql);
+    	$query = $this->db->get($this->lo_table);
+//     	echo $this->db->last_query();
     
     	if ( $type == 'count' )
     	{
     		//리스트를 반환하는 것이 아니라 전체 게시물의 갯수를 반환
     		$result = $query->num_rows();
-    
-    		//$this->db->count_all($table);
     	}
     	else
     	{
@@ -73,12 +79,11 @@ class Location_m extends My_Model
     	//조회수 증가
     	$sql = "UPDATE ".$this->lo_table." SET hits = hits + 1 WHERE id = ".$id;
    		$this->db->query($sql);
-
-   		$sql = "SELECT * FROM ".$this->lo_table." WHERE id = ".$id;
-   		$query = $this->db->query($sql);
-
-     	//게시물 내용 반환
+   		
+   		$query = $this->db->get_where($this->lo_table, array('id' => $id), 1);
 	    $result = $query->row();
+//    		echo $this->db->last_query();
+
 
     	return $result;
     }
@@ -94,6 +99,13 @@ class Location_m extends My_Model
         return $result;
     }
 
+    
+    function get_locations(){
+    	$sql = "SELECT location FROM ".$this->lo_table." GROUP BY location ORDER BY location ASC";
+    	$query = $this->db->query($sql);
+    	$result = $query->result();
+    	return $result;
+    }
     
  	
 }

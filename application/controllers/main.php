@@ -37,34 +37,35 @@ class Main extends My_Controller{
 	public function lists()
 	{
 // 		$this->output->enable_profiler(TRUE);
+		//페이지네이션 라이브러리 로딩 추가
+		$this->load->library('pagination');
+		/*
+		setgment 순서
+		main/index/페이지/키워드/전주시/
+		1 : 컨트롤러
+		2 : 메서드
+		3 : 페이지
+		4 : 검색
+		5 : 지역
+		*/
 		
 		$this->load->helper('text');
 		
-		//검색어 초기화
-		$search_word = $page_url = '';
-		$uri_segment = 3;
+		$page = $this->input->get('p') != "" ? intval($this->input->get('p'))  : 1;
+		$search_word = $this->input->get('q');
+		$location = $this->input->get('l');
+		
 	
-		//주소중에서 q(검색어) 세그먼트가 있는지 검사하기 위해 주소를 배열로 변환
-		$uri_array = $this->segment_explode($this->uri->uri_string());
-	
-		if( in_array('q', $uri_array) ) {
-			//주소에 검색어가 있을 경우의 처리. 즉 검색시
-			$search_word = urldecode($this->url_explode($uri_array, 'q'));
-	
-			//페이지네이션용 주소
-			$page_url = '/q/'.$search_word;
-			$uri_segment = 5;
-		}
-	
-		//페이지네이션 라이브러리 로딩 추가
-		$this->load->library('pagination');
-	
+		
 		//페이지네이션 설정
-		$config['base_url'] = BASE_URL.'main/index/'.$page_url; //페이징 주소
-		$config['total_rows'] = $this->location_m->get_list('count', '', '', $search_word); //게시물의 전체 갯수
+		$config['base_url'] = BASE_URL.'main/index/?q='.$search_word.'&l='.$location; //페이징 주소
+		$config['total_rows'] = $this->location_m->get_list('count', '', '', $search_word, $location); //게시물의 전체 갯수
 		$config['num_links'] = 2;	//선택된 페이지번호 좌우로 몇개의 숫자링크를 보여줄지 설정
 		$config['per_page'] = 9; //한 페이지에 표시할 게시물 수
-		$config['uri_segment'] = $uri_segment; //페이지 번호가 위치한 세그먼트
+		//$config['uri_segment'] = 3; //페이지 번호가 위치한 세그먼트
+		$config['reuse_query_string'] = true;
+		$config['query_string_segment'] = 'p';
+		
 		$config['full_tag_open'] = '<ul class="pagination justify-content-center">';
 		$config['full_tag_close'] = '</ul>';
 		$config['first_link'] = '<span aria-hidden="true">«</span> <span class="sr-only">Previous</span>';
@@ -78,29 +79,37 @@ class Main extends My_Controller{
 		$config['use_page_numbers'] = TRUE;
 		$config['anchor_class'] = 'class="page-link" ';
 		
-	
-		
 		//페이지네이션 초기화
 		$this->pagination->initialize($config);
 		//페이징 링크를 생성하여 view에서 사용할 변수에 할당
 		$data['pagination'] = $this->pagination->create_links();
-	
+		$data['page'] = $page;
+		
+		
+		$data['search_word'] = $search_word;
+		$data['location'] = $location;
+		$data['locations'] = $this->location_m->get_locations();
+		
+		
 		//게시판 목록을 불러오기 위한 offset, limit 값 가져오기
-		$data['page'] = $page = $this->uri->segment($uri_segment, 1);
-	
 		$start = ($page - 1) * $config['per_page'];
-	
 		$limit = $config['per_page'];
 		
+		$data['list'] = $this->location_m->get_list('', $start, $limit, $search_word, $location);
 		
-		$data['list'] = $this->location_m->get_list('', $start, $limit, $search_word);
+		
 		$this->load->view('list_v', $data);
 	}
 	
 	
 	
 	public function view(){
-	    $id = $this->uri->segment(3);
+	    $id = intval($this->uri->segment(3));
+	    
+	    $data['page'] = intval($this->input->get('p'));
+	    $data['search_word'] = $this->input->get('q');
+	    $data['location'] = $this->input->get('l');
+	    
 	    $data['article'] = $this->location_m->get_view($id);
 	    $data['attachs'] = $this->location_m->get_attachs($id);
 	    $this->load->view('view_v', $data);

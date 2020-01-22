@@ -5,7 +5,7 @@
 <hr class="mt-2 mb-5">
 <div class="row mt-2 mb-2">
 	<div class="col-md-12 text-right">
-		<a href="<?=BASE_URL?>main/index/<?=$this->uri->segment(5)?>" class="btn btn-secondary">목록</a>
+		<a href="<?=BASE_URL?>main/index/?p=<?=$page?>&q=<?=$search_word?>&l=<?=$location?>" class="btn btn-secondary">목록</a>
 	</div>
 </div>
 <div class="row">
@@ -66,7 +66,7 @@
 			$src = BASE_URL . "data/" . $this->uri->segment(3) . "/" . $value->attach_name;
 			?>
 			<div class="col-lg-3 col-md-4 col-6">
-				<a href="<?=$src?>" class="photo"> <img class="img-fluid img-thumbnail" src="<?=$src?>" alt="">
+				<a href="<?=$src?>" class="photo" rel="photos"> <img class="img-fluid img-thumbnail" src="<?=$src?>" alt="">
 				</a>
 			</div>
 		<?php
@@ -90,14 +90,13 @@
 </div>
 <div class="row mt-2 mb-2">
 	<div class="col-md-12 text-right">
-		<a href="<?=BASE_URL?>main/index/<?=$this->uri->segment(5)?>" class="btn btn-secondary">목록</a>
+		<a href="<?=BASE_URL?>main/index/?p=<?=$page?>&q=<?=$search_word?>&l=<?=$location?>" class="btn btn-secondary">목록</a>
 	</div>
 </div>
-<script>
+<script type="text/javascript">
 jQuery(function($){
 	
 	$('.photo').fancybox({
-	
 		padding : 10,
 		imageScale : false,
 		overlayShow : true,
