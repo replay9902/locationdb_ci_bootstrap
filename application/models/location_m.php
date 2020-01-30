@@ -5,6 +5,7 @@ class Location_m extends My_Model
 	
 	var $lo_table = 'location';
 	var $lo_attach_table = 'location_attach';
+	var $search_history_table = 'search_history';
 	
     function __construct()
     {
@@ -105,6 +106,33 @@ class Location_m extends My_Model
     	return $result;
     }
     
+    function search_history_enroll($keyword = ''){
+        
+        if($keyword == '') return;
+        
+        $query = $this->db->get_where($this->search_history_table, array('keyword' => $keyword));
+        $count = $query->num_rows();
+        
+        if($count){
+           
+            $sql = "UPDATE ".$this->search_history_table." SET count = count + 1 WHERE keyword = '".$keyword."'";
+            $this->db->query($sql);
+            
+        }else{
+            
+            $data = array(
+                'keyword' => $keyword,
+                'count' => 1,
+                'ip' => $this->input->server('REMOTE_ADDR')
+            );
+            $this->db->set('regdate', 'NOW()', false);
+            $this->db->insert($this->search_history_table, $data);
+        }
+        
+        
+//         echo $this->db->last_query();    
+        
+    }
  	
 }
 

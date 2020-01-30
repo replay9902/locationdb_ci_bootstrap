@@ -24,6 +24,7 @@
 	
 	<div class="col-md-9 mb-2 text-right col-lg-6">
 			<form action="<?=BASE_URL?>" method="get" id="search_form" class="form-inline" style="display:inline">
+			<?php echo validation_errors(); ?>
 			<?php echo form_input(array('class' => 'form-control mr-sm-2', 'placeholder' => '검색어를 입력하세요', 'name' => 'q', 'value' => $search_word))?>
 			<button class="btn btn-primary my-2 my-sm-0" type="submit">검색</button>
 			

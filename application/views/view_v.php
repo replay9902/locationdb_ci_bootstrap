@@ -97,8 +97,8 @@
 jQuery(function($){
 	
 	$('.photo').fancybox({
-		padding : 10,
-		imageScale : false,
+		padding : 0,
+		imageScale : true,
 		overlayShow : true,
 		overlayOpacity : 0.9,
 		cyclic : true,

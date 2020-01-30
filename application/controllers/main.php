@@ -38,14 +38,26 @@ class Main extends My_Controller{
 	{
 // 		$this->output->enable_profiler(TRUE);
 		//페이지네이션 라이브러리 로딩 추가
-		$this->load->library('pagination');
 		
+		$this->load->library('pagination');
+		$this->load->library('form_validation');
 		$this->load->helper(array('text', 'form',  'alert'));
+		
+		
+// 		$this->form_validation->set_rules('q', 'q', 'required|min_length[2]');
+// 		if ($this->form_validation->run() == FALSE){
+// 		    $this->form_validation->set_message('min_length', '{field} must have at least {param} characters.');
+// 		}else{
+// 		}
+		
 		
 		$page = $this->input->get('p') != "" ? intval($this->input->get('p'))  : 1;
 		$search_word = $this->input->get('q');
 		$location = $this->input->get('l');
 		
+		if($search_word){
+		    $this->location_m->search_history_enroll($search_word);
+		}
 	
 		
 		//페이지네이션 설정
