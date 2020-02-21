@@ -17,8 +17,7 @@ class Main extends My_Controller{
     	//헤더 include
 		$this->load->view('layout/header_v');
     
-    	if( method_exists($this, $method) )
-    	{
+    	if( method_exists($this, $method) ){
     		$this->{"{$method}"}();
     	}
     	
@@ -117,7 +116,6 @@ class Main extends My_Controller{
 	    $data['attachs'] = $this->location_m->get_attachs($id);
 	    $this->load->view('view_v', $data);
 	}
-	
 	
 	
 	

@@ -106,6 +106,10 @@ class Location_m extends My_Model
     	return $result;
     }
     
+    /**
+     * 검색 키워드 이력 저장
+     * @param string $keyword
+     */
     function search_history_enroll($keyword = ''){
         
         if($keyword == '') return;
@@ -115,8 +119,9 @@ class Location_m extends My_Model
         
         if($count){
            
-            $sql = "UPDATE ".$this->search_history_table." SET count = count + 1 WHERE keyword = '".$keyword."'";
-            $this->db->query($sql);
+            $this->db->set('count', 'count + 1', false);
+            $this->db->where(array('keyword' => $keyword));
+            $this->db->update($this->search_history_table);
             
         }else{
             
@@ -128,9 +133,6 @@ class Location_m extends My_Model
             $this->db->set('regdate', 'NOW()', false);
             $this->db->insert($this->search_history_table, $data);
         }
-        
-        
-//         echo $this->db->last_query();    
         
     }
  	
