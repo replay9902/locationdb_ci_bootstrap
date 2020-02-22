@@ -12,5 +12,9 @@ class Map extends My_Controller{
 		$this->load->view('map_v');
 	}
 	
-	
+	public function geocode(){
+	    
+	    $address = '아중로 33';
+	    $latlng = $this->location_m->naver_map_geocode($address);
+	}
 }

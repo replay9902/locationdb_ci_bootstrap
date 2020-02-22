@@ -37,5 +37,6 @@ define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 define('NAVER_MAP_CLIENTID', 'qvdxf4ib4g');
+define('NAVER_MAP_CLIENTSECRET', 'UkKc5rC6VbyBakfdJPDkbXQ005GTPVRH6f2qbX6x');
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

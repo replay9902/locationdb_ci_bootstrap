@@ -136,5 +136,26 @@ class Location_m extends My_Model
         
     }
  	
+    
+    public function naver_map_geocode($address = ''){
+        
+        $address = urlencode($address);
+        $ch = curl_init();
+        $header = array(
+            "X-NCP-APIGW-API-KEY-ID:".NAVER_MAP_CLIENTID,
+            "X-NCP-APIGW-API-KEY:".NAVER_MAP_CLIENTSECRET,
+        );
+        curl_setopt($ch, CURLOPT_URL, "https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode?query=".$address);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false );
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $header );
+        $result = curl_exec($ch);
+        $buffer = ob_get_contents();
+        ob_end_clean();
+        $data = json_decode($buffer);
+        $lat = $data->addresses[0]->y;
+        $lng = $data->addresses[0]->x;
+        
+        return $lat.",".$lng;
+    }
 }
 
