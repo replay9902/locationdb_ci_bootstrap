@@ -13,6 +13,11 @@ class Main extends My_Controller{
      */
     public function _remap($method)
     {
+    	if( method_exists($this, $method) && $method == 'view' ){
+	    	$this->managelayout->add_css(BASE_URL."assets/css/jquery.fancybox-1.3.4.css");
+	    	$this->managelayout->add_js(BASE_URL."assets/js/jquery.mousewheel-3.0.4.pack.js");
+	    	$this->managelayout->add_js(BASE_URL."assets/js/jquery.fancybox-1.3.4.pack.js");
+    	}
     	
     	//헤더 include
 		$this->load->view('layout/header_v');
@@ -106,6 +111,8 @@ class Main extends My_Controller{
 	
 	
 	public function view(){
+		
+		
 	    $id = intval($this->uri->segment(3));
 	    
 	    $data['page'] = intval($this->input->get('p'));
