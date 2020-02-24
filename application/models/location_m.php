@@ -74,8 +74,9 @@ class Location_m extends My_Model
     {
         
     	//조회수 증가
-    	$sql = "UPDATE ".$this->lo_table." SET hits = hits + 1 WHERE id = ".$id;
-   		$this->db->query($sql);
+   		$this->db->set('hits', 'hits + 1', false);
+   		$this->db->where(array('id' => $id));
+   		$this->db->update($this->lo_table);
    		
    		$query = $this->db->get_where($this->lo_table, array('id' => $id), 1);
 	    $result = $query->row();
