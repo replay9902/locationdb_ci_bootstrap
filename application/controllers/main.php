@@ -48,12 +48,6 @@ class Main extends My_Controller{
 		$this->load->helper(array('text', 'form',  'alert'));
 		
 		
-// 		$this->form_validation->set_rules('q', 'q', 'required|min_length[2]');
-// 		if ($this->form_validation->run() == FALSE){
-// 		    $this->form_validation->set_message('min_length', '{field} must have at least {param} characters.');
-// 		}else{
-// 		}
-		
 		
 		$page = $this->input->get('p') != "" ? intval($this->input->get('p'))  : 1;
 		$search_word = $this->input->get('q');
@@ -63,8 +57,9 @@ class Main extends My_Controller{
 		    $this->location_m->search_history_enroll($search_word);
 		}
 	
-		
 		//페이지네이션 설정
+		$this->config->load('my_pagination', true);
+		$config = $this->config->item('pagination', 'my_pagination');
 		$config['base_url'] = BASE_URL.'main/index/?q='.$search_word.'&l='.$location; //페이징 주소
 		$config['total_rows'] = $this->location_m->get_list('count', '', '', $search_word, $location); //게시물의 전체 갯수
 		$config['num_links'] = 2;	//선택된 페이지번호 좌우로 몇개의 숫자링크를 보여줄지 설정
@@ -72,19 +67,6 @@ class Main extends My_Controller{
 		//$config['uri_segment'] = 3; //페이지 번호가 위치한 세그먼트
 		$config['reuse_query_string'] = true;
 		$config['query_string_segment'] = 'p';
-		
-		$config['full_tag_open'] = '<ul class="pagination justify-content-center">';
-		$config['full_tag_close'] = '</ul>';
-		$config['first_link'] = '<span aria-hidden="true">«</span> <span class="sr-only">Previous</span>';
-		$config['first_tag_open'] = $config['last_tag_open'] = $config['num_tag_open'] = '<li class="page-item">';
-		$config['first_tag_close'] = $config['last_tag_close'] = $config['num_tag_close'] = '</li>';
-		$config['last_link'] = '<span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span>';
-		$config['num_tag_open'] = '<li class="page-item">';
-		$config['num_tag_close'] = '</li>';
-		$config['cur_tag_open'] = '<li class="page-item active"><a class="page-link" href="#">';
-		$config['cur_tag_close'] = '</a></li>';
-		$config['use_page_numbers'] = TRUE;
-		$config['anchor_class'] = 'class="page-link" ';
 		
 		//페이지네이션 초기화
 		$this->pagination->initialize($config);

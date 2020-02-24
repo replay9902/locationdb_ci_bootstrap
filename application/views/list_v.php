@@ -33,39 +33,39 @@
 </div>
 
 
-	<div class="row">
+<div class="row">
 
-	<?php 
-	foreach($list as $l){
-		$link = BASE_URL."main/view/".$l->id."?p=".$page."&q=".$search_word."&l=".$location;
-		$thumbnail = isset($l->thumbnail) && $l->thumbnail != "" ? BASE_URL."data/".$l->id."/".$l->thumbnail : "http://placehold.it/700x400"; 
-	?>
-		<div class="col-lg-4 col-sm-6 mb-4">
-			<div class="card h-100">
-				<a href="<?=$link?>"><img class="card-img-top" src="<?=$thumbnail?>" alt=""></a>
-				<div class="card-body">
-					<h4 class="card-title">
-						<a href="<?=$link?>"><?php echo $l->title?></a>
-					</h4>
-					<p class="card-text"><?php echo word_limiter($l->introduce, 10)?></p>
-				</div>
+<?php 
+foreach($list as $l){
+	$link = base_url("main/view/".$l->id."?p=".$page."&q=".$search_word."&l=".$location);
+	$thumbnail = isset($l->thumbnail) && $l->thumbnail != "" ? BASE_URL."data/".$l->id."/".$l->thumbnail : "http://placehold.it/700x400"; 
+?>
+	<div class="col-lg-4 col-sm-6 mb-4">
+		<div class="card h-100">
+			<a href="<?=$link?>"><img class="card-img-top" src="<?=$thumbnail?>" alt=""></a>
+			<div class="card-body">
+				<h4 class="card-title">
+					<a href="<?=$link?>"><?php echo $l->title?></a>
+				</h4>
+				<p class="card-text"><?php echo word_limiter($l->introduce, 10)?></p>
 			</div>
 		</div>
-	<?php 
-	}
-	?>
-		
-	<?php if(count($list) == 0){?>
-		<div class="col-lg-12 col-sm-12 mb-12">
-			<div class="card h-100">
-				<div class="card-body">
-					<p class="card-text"><a href="<?=BASE_URL?>">검색조건에 해당하는 데이터가 없습니다.</a></p>
-				</div>
-			</div>
-		</div>
-	<?php }?>
 	</div>
-	<!-- /.row -->
+<?php 
+}
+?>
+	
+<?php if(count($list) == 0){?>
+	<div class="col-lg-12 col-sm-12 mb-12">
+		<div class="card h-100">
+			<div class="card-body">
+				<p class="card-text"><a href="<?=BASE_URL?>">검색조건에 해당하는 데이터가 없습니다.</a></p>
+			</div>
+		</div>
+	</div>
+<?php }?>
+</div>
+<!-- /.row -->
 
 
 <!-- Pagination -->

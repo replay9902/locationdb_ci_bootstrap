@@ -8,8 +8,8 @@
 			<li class="nav-item active"><a class="nav-link" href="<?=BASE_URL?>">Home<span class="sr-only">(current)</span></a></li>
 			<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Map </a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item" href="<?=BASE_URL?>map">Map</a>
-					<a class="dropdown-item" href="<?=BASE_URL?>map/geocode">Geocode</a>
+					<a class="dropdown-item" href="<?=BASE_URL?>map/">Map</a>
+					<a class="dropdown-item" href="<?=BASE_URL?>map/geocode/">Geocode</a>
 				</div>
 			</li>
 		</ul>
@@ -17,9 +17,10 @@
 			<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
 			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 		</form>
+		<?php if(MEM_ID){?>
 		<ul class="navbar-nav navbar-right">
-			<li class="nav-item active"><a class="nav-link" href="<?=BASE_URL?>auth/logout">Logout</a></li>
-			
+			<li class="nav-item active"><a class="nav-link" href="<?=BASE_URL?>auth/logout"><?=MEM_NM ? MEM_NM."님" : ""?> Logout</a></li>
 		</ul>
+		<?php }?>
 	</div>
 </nav>
