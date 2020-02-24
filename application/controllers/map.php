@@ -34,13 +34,14 @@ class Map extends My_Controller{
 	public function geocode(){
 		
 		if(!MEM_ID){
-			redirect(base_url('map/index'), 'location', 301);
+			redirect(base_url('auth/index'), 'location', 301);
 		}
 
+		$this->load->view('geocode_v');
 // 			redirect('auth/', 'location', 301);
 			 
 // 	    print_r($this->session->userdata);
-	    $address = '아중로 33';
+// 	    $address = '아중로 33';
 // 	    $latlng = $this->location_m->naver_map_geocode($address);
 	}
 }

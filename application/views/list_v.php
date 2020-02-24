@@ -1,7 +1,6 @@
 <!-- Page Content -->
 <div class="container">
 
-	<?php $this->load->view('layout/navbar_v')?>
 	<!-- Page Heading -->
 	<h1 class="my-4">
 		<a href="<?=BASE_URL?>" style="color:#000;text-decoration:none">로케이션DB </a><!-- <small>Secondary Text</small> -->

@@ -113,7 +113,6 @@ jQuery(function($){
 		titleShow : true,
 		titleFormat : this.title,
 		titlePosition : 'over'		// outside, inside, over
-	
 	});
 });
 </script>

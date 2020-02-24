@@ -10,7 +10,7 @@ class Auth extends My_Controller{
     {
     	
     	if(MEM_ID)
-    		redirect('main/', 'location', 301);
+    		redirect(base_url('main/index'), 'location', 301);
     	else
     		$this->login();
     }

@@ -18,3 +18,4 @@
 <?php echo $this->managelayout->display_js(); ?>
 </head>
 <body>
+<?php $this->load->view('layout/navbar_v')?>

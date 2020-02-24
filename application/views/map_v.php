@@ -1,4 +1,3 @@
-<?php $this->load->view('layout/navbar_v')?>
 
 <div id="map" class="map"></div>
 
