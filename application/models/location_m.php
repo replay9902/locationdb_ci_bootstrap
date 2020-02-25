@@ -138,9 +138,8 @@ class Location_m extends My_Model
     }
  	
     
-    public function naver_map_geocode($address = ''){
+    public function naver_map_geocode($address = '', $id = 0){
         
-        $address = urlencode($address);
         $ch = curl_init();
         $header = array(
             "X-NCP-APIGW-API-KEY-ID:".NAVER_MAP_CLIENTID,
@@ -153,10 +152,17 @@ class Location_m extends My_Model
         $buffer = ob_get_contents();
         ob_end_clean();
         $data = json_decode($buffer);
+        
         $lat = $data->addresses[0]->y;
         $lng = $data->addresses[0]->x;
+        $roadAddress = $data->addresses[0]->roadAddress;
+        $latlng = $lat.",".$lng;
         
-        return $lat.",".$lng;
+		$this->db->set('latlng', $latlng);
+		$this->db->where(array('id' => $id));
+		$this->db->update($this->lo_table);
+		
     }
+    
 }
 
