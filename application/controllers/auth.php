@@ -1,4 +1,4 @@
-<?
+<?php
 class Auth extends My_Controller{
     
     function __construct(){

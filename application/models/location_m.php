@@ -13,8 +13,9 @@ class Location_m extends My_Model
     }
 
     
+   
     
-    function get_list($type = '', $offset = '', $limit = '', $search_word = '', $location = '')
+    function get_list($type = '', $offset = '', $limit = '', $search_word = '', $location = '', $isGeocode = false)
     {
     	
     	if ($search_word != '')
@@ -26,6 +27,10 @@ class Location_m extends My_Model
     
     	if($location != ""){
     		$this->db->where('location', $location);
+    	}
+    	
+    	if($isGeocode){
+    		$this->db->where(array('address !=' => '', 'latlng' => NULL));
     	}
     	
     	$limit_query = '';
@@ -65,6 +70,8 @@ class Location_m extends My_Model
     
     	return $result;
     }
+    
+    
     
  	
    /**
@@ -152,15 +159,17 @@ class Location_m extends My_Model
         $buffer = ob_get_contents();
         ob_end_clean();
         $data = json_decode($buffer);
-        
-        $lat = $data->addresses[0]->y;
-        $lng = $data->addresses[0]->x;
-        $roadAddress = $data->addresses[0]->roadAddress;
-        $latlng = $lat.",".$lng;
-        
-		$this->db->set('latlng', $latlng);
-		$this->db->where(array('id' => $id));
-		$this->db->update($this->lo_table);
+        if(count($data->addresses) > 0){
+        	
+	        $lat = $data->addresses[0]->y;
+	        $lng = $data->addresses[0]->x;
+	        $roadAddress = $data->addresses[0]->roadAddress;
+	        $latlng = $lat.",".$lng;
+	        
+			$this->db->set('latlng', $latlng);
+			$this->db->where(array('id' => $id));
+			$this->db->update($this->lo_table);
+        }
 		
     }
     

@@ -10,7 +10,6 @@
 						<th scope="col">순번</th>
 						<th scope="col">로케이션명</th>
 						<th scope="col">주소</th>
-						<th scope="col">좌표</th>
 						<th scope="col">변환</th>
 					</tr>
 				</thead>
@@ -24,7 +23,6 @@
 						<th scope="row"><?=$total_rows - $start - $i?></th>
 						<td><?=anchor($link, $l->title, 'title="'.$l->title.'"')?></td>
 						<td><?=$l->address?></td>
-						<td><?=$l->latlng?></td>
 						<td>
 						<?php if($l->address && !$l->latlng){?>
 						<?=anchor(base_url('map/update/'.$l->id."/").urlencode($l->address)."/p=".$page."&q=".$search_word."&l=".$location, "변환", array('title' => '변환', 'class' => 'btn btn-primary btn-sm'))?>
@@ -42,3 +40,8 @@
 	<!-- Pagination -->
 	<?php echo $pagination;?>
 </div>
+<script>
+jQuery(function($){
+	$('.table tr:first-child td > a.btn').focus();
+});
+</script>

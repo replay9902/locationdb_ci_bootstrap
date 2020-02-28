@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php 
 class Main extends My_Controller{
 	
 	 public function __construct()
@@ -18,9 +18,9 @@ class Main extends My_Controller{
 	    	$this->managelayout->add_js(BASE_URL."assets/js/jquery.mousewheel-3.0.4.pack.js");
 	    	$this->managelayout->add_js(BASE_URL."assets/js/jquery.fancybox-1.3.4.pack.js");
     	}
-    	
+    	$data['rand'] = rand(1, 10000);
     	//헤더 include
-		$this->load->view('layout/header_v');
+		$this->load->view('layout/header_v', $data);
     
     	if( method_exists($this, $method) ){
     		$this->{"{$method}"}();
@@ -94,7 +94,6 @@ class Main extends My_Controller{
 	
 	public function view(){
 		
-		
 	    $id = intval($this->uri->segment(3));
 	    
 	    $data['page'] = intval($this->input->get('p'));
@@ -102,8 +101,13 @@ class Main extends My_Controller{
 	    $data['location'] = $this->input->get('l');
 	    
 	    $data['article'] = $this->location_m->get_view($id);
-	    $data['attachs'] = $this->location_m->get_attachs($id);
-	    $this->load->view('view_v', $data);
+	    if($data['article'] != null) {
+    	    $data['attachs'] = $this->location_m->get_attachs($id);
+    	    $this->load->view('view_v', $data);
+	    }else{
+	        $this->load->helper('alert');
+	        alert('잘못된 접근입니다', BASE_URL);
+	    }
 	}
 	
 	

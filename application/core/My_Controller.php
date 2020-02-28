@@ -1,11 +1,5 @@
 <?php
 class My_Controller extends CI_Controller {
-    //게시판 모델 전역 변수
-    //public $model_name;
-    //전역 설정값 배열
-    //public $gb = array();
-    //$model_name_temp = explode("/", $_SERVER['REQUEST_URI']);
-    //$model_name = $model_name_temp[1]."_model";
     /**
      * 생성자
      * 기본값 세팅
@@ -27,7 +21,6 @@ class My_Controller extends CI_Controller {
          $mem_nm = $this->session->userdata('mem_nm');
          define("MEM_ID", $mem_id);
          define("MEM_NM", $mem_nm);
-         
          
          unset($path);
     }
