@@ -73,9 +73,17 @@ class Map extends My_Controller{
 		$data['list'] = $this->location_m->get_list('', $start, $limit, $search_word, $location, true);
 	
 		$data['rand'] = rand(1, 10000);
+		
 		//헤더 include
 		$this->load->view('layout/header_v', $data);
 		$this->load->view('geocode_v', $data);
 		$this->load->view('layout/footer_v');
+	}
+	
+	function latlngJSON(){
+	    $this->load->helper('file');
+	    $list = $this->location_m->get_latlng_list();
+	    $text = json_encode($list);
+	    $json_file = BASE_PATH.'assets/js/latlng.json';
 	}
 }

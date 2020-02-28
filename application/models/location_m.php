@@ -14,7 +14,16 @@ class Location_m extends My_Model
 
     
    
-    
+    /**
+     * 
+     * @param string $type 리턴 타입 data or count
+     * @param string $offset 
+     * @param string $limit
+     * @param string $search_word 검색 키워드
+     * @param string $location 지역 검색
+     * @param boolean $isGeocode 주소가 등록되어 있고 좌표가 구해져 있지 않은 데이터만 추출하기 위함
+     * @return unknown
+     */
     function get_list($type = '', $offset = '', $limit = '', $search_word = '', $location = '', $isGeocode = false)
     {
     	
@@ -104,7 +113,10 @@ class Location_m extends My_Model
         return $result;
     }
 
-    
+    /**
+     * 지역 검색에 필요한 지역 그룹 구하기
+     * @return unknown
+     */
     function get_locations(){
     	$this->db->select('location');
     	$this->db->group_by('location');
@@ -173,5 +185,13 @@ class Location_m extends My_Model
 		
     }
     
+    
+    public function get_latlng_list(){
+        $this->db->select('id, title, address, latlng');
+        $this->db->order_by('id', 'DESC');
+        $query = $this->db->get($this->lo_table);
+        $result = $query->result();
+        return $result;
+    }
 }
 

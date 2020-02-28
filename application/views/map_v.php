@@ -1,4 +1,3 @@
-
 <div id="map" class="map"></div>
 
 <script>
@@ -22,14 +21,37 @@ $window.on('resize', function() {
     map.setSize(getMapSize());
 });
 
-// var infowindows = [], markers = [];
+var infowindows = [], markers = [];
 
-// markers[0] = new naver.maps.Marker({
-//     position: new naver.maps.LatLng(37.3595704, 127.105399),
-//     map: map
-// });
-// markers[1] = new naver.maps.Marker({
-//     position: new naver.maps.LatLng(35.8244817, 127.1538007),
-//     map: map
-// });
+
+$.getJSON('<?=BASE_URL?>assets/js/latlng.json', function(data) {
+	data.forEach(function(item) {
+		id = item.id;
+		latlng = item.latlng;
+		tmp = latlng.split(',');
+		lat = tmp[0];
+		lng = tmp[1];
+		
+		var marker = new naver.maps.Marker({
+		    position: new naver.maps.LatLng(lat, lng),
+		    map: map
+		});
+
+		var infowindow = new naver.maps.InfoWindow({
+			content: '<h5>'+ item.title +'</h5>'
+		});
+		
+		naver.maps.Event.addListener(marker, "click", function(e) {
+		    if (infowindow.getMap()) {
+		    	infowindow.close();
+		    } else {
+		    	infowindow.open(map, marker);
+		    }
+		});
+
+		
+	});
+});
+
+
 </script>
