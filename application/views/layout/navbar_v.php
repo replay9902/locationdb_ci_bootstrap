@@ -9,7 +9,7 @@
 			<li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Map </a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 					<a class="dropdown-item" href="<?=BASE_URL?>map/index/">Map</a>
-					<a class="dropdown-item" href="<?=BASE_URL?>map/geocode/<?=$rand?>">Geocode</a>
+					<a class="dropdown-item" href="<?=BASE_URL?>map/geocode/">Geocode</a>
 				</div>
 			</li>
 		</ul>

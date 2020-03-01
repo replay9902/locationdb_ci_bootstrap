@@ -11,9 +11,8 @@ class Map extends My_Controller{
 	public function index(){
 		$this->managelayout->add_css(BASE_URL."assets/css/map.css");
 		$this->managelayout->add_js("https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=".NAVER_MAP_CLIENTID);
-		$data['rand'] = rand(1, 10000);
 		//헤더 include
-		$this->load->view('layout/header_v', $data);
+		$this->load->view('layout/header_v');
 		$this->load->view('map_v');
 		$this->load->view('layout/footer_v');
 	}
@@ -72,8 +71,6 @@ class Map extends My_Controller{
 	
 		$data['list'] = $this->location_m->get_list('', $start, $limit, $search_word, $location, true);
 	
-		$data['rand'] = rand(1, 10000);
-		
 		//헤더 include
 		$this->load->view('layout/header_v', $data);
 		$this->load->view('geocode_v', $data);

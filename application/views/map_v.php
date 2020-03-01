@@ -8,7 +8,6 @@ var mapOptions = {
 
 var map = new naver.maps.Map('map', mapOptions);
 
-
 var $window = $(window);
 
 function getMapSize() {
@@ -21,7 +20,6 @@ $window.on('resize', function() {
     map.setSize(getMapSize());
 });
 
-var infowindows = [], markers = [];
 
 
 $.getJSON('<?=BASE_URL?>assets/js/latlng.json', function(data) {
@@ -38,7 +36,7 @@ $.getJSON('<?=BASE_URL?>assets/js/latlng.json', function(data) {
 		});
 
 		var infowindow = new naver.maps.InfoWindow({
-			content: '<h5>'+ item.title +'</h5>'
+			content: '<h5><a href="<?=BASE_URL?>main/view/'+item.id+'">'+ item.title +'</a></h5>'
 		});
 		
 		naver.maps.Event.addListener(marker, "click", function(e) {

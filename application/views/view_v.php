@@ -56,11 +56,20 @@
 		</div>
 	</div>
 	<ul class="nav nav-tabs nav-justified mb-4">
-		<li class="nav-item"><a role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0"> <span>사진 [ <?=count($attachs)?> ] </span></a></li>
-		<li class="nav-item"><a role="tab" class="nav-link" id="tab-1" data-toggle="tab" href="#tab-content-1"> <span>영상</span></a></li>
+		<li class="nav-item"><a role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0"> <span>사진 / 영상 [ <?=count($attachs)?> ] </span></a></li>
+		<li class="nav-item"><a role="tab" class="nav-link" id="tab-1" data-toggle="tab" href="#tab-content-1"> <span>위치</span></a></li>
 	</ul>
 	<div class="tab-content">
 		<div class="tab-pane tabs-animation fade active show" id="tab-content-0" role="tabpanel">
+			<?php if($article->video != ""){?>
+			<div class="row">
+				<div class="col-lg-12 col-md-12 col-12">
+					<div class="embed-responsive embed-responsive-16by9">
+						<iframe class="embed-responsive-item" src="<?=$article->video?>" allowfullscreen=""></iframe>
+					</div>
+				</div>
+			</div>
+			<?php }?>
 			<div class="row">
 			<?php
 			foreach($attachs as $value) {
@@ -78,13 +87,7 @@
 		<div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-12">
-				<?php if($article->video != ""){?>
-				<div class="embed-responsive embed-responsive-16by9">
-						<iframe class="embed-responsive-item" src="<?=$article->video?>" allowfullscreen=""></iframe>
-					</div>
-				<?php }else{?>
-					<div class="jumbotron text-center">등록된 영상이 없습니다.</div>
-				<?php }?>
+					<div id="map" class="map" style="width:100%;height:auto"></div>
 				</div>
 			</div>
 		</div>
@@ -97,6 +100,40 @@
 </div>
 
 <script type="text/javascript">
+<?php
+$position = explode(",",$article->latlng);
+$lat = $position[0] != "" ? $position[0] : 35.8244817;
+$lng = $position[1] != "" ? $position[1] : 127.1538007;
+?>
+var lat = <?=$lat?>;
+var lng = <?=$lng?>;
+var title = '<?=$article->title?>';
+
+var mapOptions = {
+    center: new naver.maps.LatLng(lat, lng),
+    zoom: 10
+};
+var map = new naver.maps.Map('map', mapOptions);
+
+var $window = $(window);
+var $container = $('.container');
+
+function getMapSize() {
+    var size = new naver.maps.Size($container.width(), $container.width() / 2);
+    return size;
+};
+
+map.setSize(getMapSize());
+$window.on('resize', function() {
+    map.setSize(getMapSize());
+});
+
+var marker = new naver.maps.Marker({
+    position: new naver.maps.LatLng(lat, lng),
+    map: map
+});
+
+
 jQuery(function($){
 	
 	$('.photo').fancybox({
